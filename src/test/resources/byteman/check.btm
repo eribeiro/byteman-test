@@ -1,0 +1,16 @@
+RULE Trace Threadname
+CLASS Foo
+METHOD call
+AT ENTRY
+IF true
+DO traceln("Foo.call() was called!");
+ENDRULE
+
+
+RULE Trace Threadname
+CLASS FileOutputStream
+METHOD write(byte[])
+# BIND count = incrementCounter($0)
+IF TRUE
+DO throw new IOException("disk is full");
+ENDRULE
