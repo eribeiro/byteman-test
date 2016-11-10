@@ -27,17 +27,11 @@ public class ScriptBytemanTests {
     @Test
     public void testFileInputStream() throws IOException {
         File tmpFile = File.createTempFile("test-", ".txt");
-        FileOutputStream fis = null;
-        try {
-            fis = new FileOutputStream(tmpFile);
+        try (FileOutputStream fis =  new FileOutputStream(tmpFile)) {
             fis.write("Hello".getBytes());
             fis.write("Hello".getBytes());
             fis.write("Hello".getBytes());
 
-        }
-        finally {
-            if (fis != null)
-                fis.close();
         }
     }
 }

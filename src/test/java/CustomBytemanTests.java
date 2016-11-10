@@ -20,8 +20,6 @@ public class CustomBytemanTests {
     @Rule public BytemanRule byteman = BytemanRule.create(CustomBytemanTests.class);
 
     @Test(expected= RuntimeException.class)
-//    @BMUnitConfig(loadDirectory="")
-//    @BMScript(value="check.btm")
     @BMRule(name = "ForceRuntimeException",
             targetClass="Foo",
             targetMethod="call",
