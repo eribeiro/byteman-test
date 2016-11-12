@@ -1,3 +1,5 @@
+package br.edu.eribeiro;
+
 import java.io.IOException;
 
 public class Foo {

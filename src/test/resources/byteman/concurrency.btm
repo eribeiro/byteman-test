@@ -1,0 +1,44 @@
+
+#
+# This rule creates a concurrency barrier
+#
+RULE define rendezvous
+CLASS br.edu.eribeiro.BrokenSingleton
+METHOD get
+AT ENTRY
+IF NOT isRendezvous("rendezvous", 2)
+DO
+createRendezvous("rendezvous", 2, true);
+traceln("rendezvous created");
+ENDRULE
+
+#
+# This rule only let threads proceed if two threads reach the barrier
+#
+RULE catch threads
+CLASS br.edu.eribeiro.BrokenSingleton
+METHOD get
+AFTER READ br.edu.eribeiro.BrokenSingleton.instance
+IF isRendezvous("rendezvous", 2)
+DO rendezvous("rendezvous");
+ENDRULE
+
+
+RULE trace entering
+CLASS br.edu.eribeiro.BrokenSingleton
+METHOD get
+AT ENTRY
+IF true
+DO traceln("entered get-Method")
+ENDRULE
+
+#
+# print
+#
+RULE trace read stacks
+CLASS br.edu.eribeiro.BrokenSingleton
+METHOD get
+AFTER READ br.edu.eribeiro.BrokenSingleton.instance
+IF true
+DO traceln("READ:\n" + formatStack())
+ENDRULE

@@ -1,4 +1,4 @@
-/**
+package br.edu.eribeiro; /**
  * Code lifted from: http://aredko.blogspot.com.br/2013/04/fault-injection-with-byteman-and-junit.html
  *
  * Github repo: https://github.com/reta/spring-jpa-byteman

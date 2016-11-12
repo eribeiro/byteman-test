@@ -1,16 +1,25 @@
 RULE Trace Threadname
-CLASS Foo
+CLASS br.edu.eribeiro.Foo
 METHOD call
 AT ENTRY
 IF true
-DO traceln("Foo.call() was called!");
+DO traceln("br.edu.eribeiro.Foo.call() was called!");
 ENDRULE
 
 
-RULE Trace Threadname
-CLASS FileOutputStream
+RULE count FileOutputStream writes
+CLASS java.io.FileOutputStream
 METHOD write(byte[])
-# BIND count = incrementCounter($0)
 IF TRUE
-DO throw new IOException("disk is full");
+DO incrementCounter("outputstream-write")
+ENDRULE
+
+RULE FileOutputStream throws IOException
+CLASS java.io.FileOutputStream
+METHOD write(byte[])
+BIND counter = readCounter("outputstream-write")
+IF counter == 2
+DO
+   traceln("throwing exception on second");
+   throw java.io.IOException("Throwing exception on the second write() call");
 ENDRULE
