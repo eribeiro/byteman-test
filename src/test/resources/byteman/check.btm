@@ -7,14 +7,14 @@ DO traceln("br.edu.eribeiro.Foo.call() was called!");
 ENDRULE
 
 
-RULE count FileOutputStream writes
+RULE count ouput writes
 CLASS java.io.FileOutputStream
 METHOD write(byte[])
 IF TRUE
 DO incrementCounter("outputstream-write")
 ENDRULE
 
-RULE FileOutputStream throws IOException
+RULE output throws exception
 CLASS java.io.FileOutputStream
 METHOD write(byte[])
 BIND counter = readCounter("outputstream-write")
