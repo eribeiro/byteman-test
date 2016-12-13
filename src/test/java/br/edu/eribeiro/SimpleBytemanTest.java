@@ -1,6 +1,5 @@
 package br.edu.eribeiro;
 
-import br.edu.eribeiro.Foo;
 import org.jboss.byteman.contrib.bmunit.BMRule;
 import org.jboss.byteman.contrib.bmunit.BMRules;
 import org.jboss.byteman.contrib.bmunit.BMUnitRunner;
@@ -12,11 +11,11 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(BMUnitRunner.class)
-public class SimpleBytemanTests {
+public class SimpleBytemanTest {
 
     @Test(expected= RuntimeException.class)
     @BMRule(name = "ForceRuntimeException",
-            targetClass="br.edu.eribeiro.Foo",
+            targetClass="Foo",
             targetMethod="call",
             action="throw new RuntimeException()",
             targetLocation = "AT ENTRY"
@@ -28,7 +27,7 @@ public class SimpleBytemanTests {
     @Test
     @BMRule(
             name = "ReturnDifferentResult",
-            targetClass = "br.edu.eribeiro.Foo",
+            targetClass = "Foo",
             targetMethod = "call",
             action = "return \"World, Hello\"", // could `return null`
             targetLocation = "AT EXIT" // optional, in this case, as it will be always executed at the exiting
@@ -39,7 +38,7 @@ public class SimpleBytemanTests {
 
     @Test(expected= IOException.class)
     @BMRule(name = "ForceIOException",
-            targetClass="br.edu.eribeiro.Foo",
+            targetClass="Foo",
             targetMethod="call2",
             action="throw new java.io.IOException(\"Byteman says: disk is full!\")",
             targetLocation = "AT ENTRY"
@@ -54,13 +53,13 @@ public class SimpleBytemanTests {
     @Test
     @BMRules(rules = {
                     @BMRule(name = "EnteringMethod",
-                            targetClass = "br.edu.eribeiro.Foo",
+                            targetClass = "Foo",
                             targetMethod = "call",
                             action = "traceln(\"entering method\");",
                             targetLocation = "AT ENTRY"
                             ),
                     @BMRule(name = "ExitingMethod",
-                            targetClass = "br.edu.eribeiro.Foo",
+                            targetClass = "Foo",
                             targetMethod = "call",
                             action = "traceln(\"exiting method\");",
                             targetLocation = "AT EXIT"
