@@ -1,6 +1,5 @@
 package br.edu.eribeiro;
 
-import br.edu.eribeiro.BrokenSingleton;
 import org.jboss.byteman.contrib.bmunit.BMRule;
 import org.jboss.byteman.contrib.bmunit.BMScript;
 import org.jboss.byteman.contrib.bmunit.BMUnitConfig;
@@ -9,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(BMUnitRunner.class)
-@BMUnitConfig(loadDirectory="src/test/resources/byteman", debug=true)
+@BMUnitConfig(loadDirectory="target/test-classes", debug=true)
 @BMScript(value="concurrency.btm")
 public class BrokenSingletonTest {
 

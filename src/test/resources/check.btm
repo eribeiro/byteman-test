@@ -1,5 +1,5 @@
 RULE Trace call()
-CLASS Foo
+CLASS br.edu.eribeiro.Foo
 METHOD call
 AT ENTRY
 IF true
