@@ -7,19 +7,19 @@ DO traceln("=================================== Foo.call() was called! =========
 ENDRULE
 
 
-RULE count FileOutputStream writes
-CLASS java.io.FileOutputStream
-METHOD write(byte[])
-IF TRUE
-DO incrementCounter("outputstream-write")
-ENDRULE
+#RULE count FileOutputStream writes
+#CLASS java.io.FileOutputStream
+#METHOD write(byte[])
+#IF TRUE
+#DO incrementCounter("outputstream-write")
+#ENDRULE
 
-RULE FileOutputStream throws IOException
-CLASS java.io.FileOutputStream
-METHOD write(byte[])
-BIND counter = readCounter("outputstream-write")
-IF counter == 2
-DO
-   traceln("throwing exception on second");
-   throw java.io.IOException("Throwing exception on the second write() call");
-ENDRULE
+#RULE FileOutputStream throws IOException
+#CLASS java.io.FileOutputStream
+#METHOD write(byte[])
+#BIND counter = readCounter("outputstream-write")
+#IF counter == 2
+#DO
+#   traceln("throwing exception on second");
+#   throw java.io.IOException("Throwing exception on the second write() call");
+#ENDRULE
